@@ -1265,8 +1265,16 @@
   (board-maker [28 20 43 50 35 34 45 37 38 39 29 22 15 27 18] [54 40 8 12 9 33 57 60]))
 
 (def board22
-  "a result board of add a black piece in 36 in board 21"
+  "a result board of add a black piece in 36 in board21"
   (board-maker [] [28 20 43 50 35 34 45 37 38 39 29 22 15 27 18 54 40 8 12 9 33 57 60 36]))
+
+(def board21w
+  "a board with many white pieces and many black pieces if you put a white piece in 36 you change all blacks to white (white-test)"
+  (board-maker [54 40 8 12 9 33 57 60] [28 20 43 50 35 34 45 37 38 39 29 22 15 27 18]))
+
+(def board22w
+  "a result board of add a white piece in 36 in board21w"
+  (board-maker [28 20 43 50 35 34 45 37 38 39 29 22 15 27 18 54 40 8 12 9 33 57 60 36] []))
 
 (deftest occupied-right-left?-test
   "with occupied-left-right, up-down, etc. is exactly, I only change the key
@@ -1321,3 +1329,10 @@
 
 (deftest complete-black-movement-test
   (is (= board22 (reversi.move/complete-black-movement board21 36))))
+
+
+
+(deftest complete-white-movement-test
+  "if we prove this automatically all changes-white-... are proved becaus we need all in this function"
+  (is (= board22w (reversi.move/complete-white-movement board21w 36))))
+

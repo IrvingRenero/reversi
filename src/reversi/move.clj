@@ -90,48 +90,48 @@
   [board pos occupied connection add color]
   (let [board-after-add (add board pos)]
     (if (all-the-center? board pos color occupied)
-      (reduce (fn [board pos] (add-a-black board pos))
+      (reduce (fn [board pos] (add board pos))
               board-after-add
               (take (count (take-the-center board pos color occupied)) (connection pos)))
       board-after-add)))
 
 (defn changes-black-right-left
-  "make all the changes in right left connection if exist (after a white turn)"
+  "make all the changes in right left connection if exist (after a black turn)"
   [board pos]
   (changes board pos occupied-right-left? reversi.board/connect-right-left add-a-black -1))
 
 (defn changes-black-left-right
-  "make all the changes in left-right connection if exist (after a white turn)"
+  "make all the changes in left-right connection if exist (after a black  turn)"
   [board pos]
   (changes board pos occupied-left-right? reversi.board/connect-left-right add-a-black -1))
 
 (defn changes-black-up-down
-  "make all the changes in up-down connection if exist (after a white turn)"
+  "make all the changes in up-down connection if exist (after a black  turn)"
   [board pos]
   (changes board pos occupied-up-down? reversi.board/connect-up-down add-a-black -1))
 
 (defn changes-black-down-up
-  "make all the changes in down-up connection if exist (after a white turn)"
+  "make all the changes in down-up connection if exist (after a black  turn)"
   [board pos]
   (changes board pos occupied-down-up? reversi.board/connect-down-up add-a-black -1))
 
 (defn changes-black-left-up
-  "make all the changes in left-up connection if exist (after a white turn)"
+  "make all the changes in left-up connection if exist (after a black  turn)"
   [board pos]
   (changes board pos occupied-left-up? reversi.board/connect-left-up add-a-black -1))
 
 (defn changes-black-left-down
-  "make all the changes in left-down connection if exist (after a white turn)"
+  "make all the changes in left-down connection if exist (after a black  turn)"
   [board pos]
   (changes board pos occupied-left-down? reversi.board/connect-left-down add-a-black -1))
 
 (defn changes-black-right-down
-  "make all the changes in right-down connection if exist (after a white turn)"
+  "make all the changes in right-down connection if exist (after a black  turn)"
   [board pos]
   (changes board pos occupied-right-down? reversi.board/connect-right-down add-a-black -1))
 
 (defn changes-black-right-up
-  "make all the changes in right-up connection if exist (after a white turn)"
+  "make all the changes in right-up connection if exist (after a black  turn)"
   [board pos]
   (changes board pos occupied-right-up? reversi.board/connect-right-up add-a-black -1))
 
@@ -149,3 +149,58 @@
              changes-black-up-down
              changes-black-left-right
              changes-black-right-left])))
+
+(defn changes-white-right-left
+  "make all the changes in right left connection if exist (after a white turn)"
+  [board pos]
+  (changes board pos occupied-right-left? reversi.board/connect-right-left add-a-white 1))
+
+(defn changes-white-left-right
+  "make all the changes in left-right connection if exist (after a white turn)"
+  [board pos]
+  (changes board pos occupied-left-right? reversi.board/connect-left-right add-a-white  1))
+
+(defn changes-white-up-down
+  "make all the changes in up-down connection if exist (after a white turn)"
+  [board pos]
+  (changes board pos occupied-up-down? reversi.board/connect-up-down add-a-white 1))
+
+(defn changes-white-down-up
+  "make all the changes in down-up connection if exist (after a white turn)"
+  [board pos]
+  (changes board pos occupied-down-up? reversi.board/connect-down-up add-a-white 1))
+
+(defn changes-white-left-up
+  "make all the changes in left-up connection if exist (after a white turn)"
+  [board pos]
+  (changes board pos occupied-left-up? reversi.board/connect-left-up add-a-white 1))
+
+(defn changes-white-left-down
+  "make all the changes in left-down connection if exist (after a white turn)"
+  [board pos]
+  (changes board pos occupied-left-down? reversi.board/connect-left-down add-a-white 1))
+
+(defn changes-white-right-down
+  "make all the changes in right-down connection if exist (after a white turn)"
+  [board pos]
+  (changes board pos occupied-right-down? reversi.board/connect-right-down add-a-white 1))
+
+(defn changes-white-right-up
+  "make all the changes in right-up connection if exist (after a white turn)"
+  [board pos]
+  (changes board pos occupied-right-up? reversi.board/connect-right-up add-a-white 1))
+
+(defn complete-white-movement
+  "make all the changes after add a black piece"
+  [board pos]
+  (if (valide-move? board pos)
+    (reduce (fn [new-board changes-conection-fn] (changes-conection-fn new-board pos))
+            board
+            [changes-white-right-up
+             changes-white-right-down
+             changes-white-left-down
+             changes-white-left-up
+             changes-white-down-up
+             changes-white-up-down
+             changes-white-left-right
+             changes-white-right-left])))
