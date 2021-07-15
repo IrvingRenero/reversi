@@ -1185,7 +1185,7 @@
   (reversi.move/add-a-white (reversi.move/add-a-black board1 1) 2))
 
 (def board6
-  "a board with a black pieces in 1 and 2"
+  "a board with a black pieces in 1 and 2 (black-test)"
   (reduce (fn [board pos] (reversi.move/add-a-black board pos))
           board1
           [1 2 3]))
@@ -1209,59 +1209,59 @@
   (is (= board7 (board-maker [20 29 38] [11]))))
 
 (def board8
-  "a board with black piece in 11, 20, 29, 38 47"
+  "a board with black piece in 11, 20, 29, 38 47 (black-test)"
   (board-maker [] [11 20 29 38 47]))
 
 (def board9
-  "a board with black piece in 46 and white pieces in 37 and 28"
+  "a board with black piece in 46 and white pieces in 37 and 28 (black-test)"
   (board-maker [19 28] [37]))
 
 (def board10
-  "a board with black pieces in 19, 28, and 37"
+  "a board with black pieces in 19, 28, and 37 (black-test)"
   (board-maker [] [10 19 28 37]))
 
 (def board11
-  "a board with black piece in 20 and white pieces in 17, 18 and 19"
+  "a board with black piece in 20 and white pieces in 17, 18 and 19 (black-test)"
   (board-maker [18 19] [20]))
 
 (def board12
-  "a board with black piece in 20 and white pieces in 17, 18 and 19"
+  "a board with black piece in 20 and white pieces in 17, 18 and 19 (black-test)"
   (board-maker [] [17 18 19 20]))
 
 (def board13
-  "a board with black piece in 53 and white pieces in 37 and 45"
+  "a board with black piece in 53 and white pieces in 37 and 45 (black-test)"
   (board-maker [37 45] [53]))
 
 (def board14
-  "a board with black piece in 53 and white pieces in 37 and 45"
+  "a board with black piece in 53 and white pieces in 37 and 45 (black-test)"
   (board-maker [] [29 37 45 53]))
 
 (def board15
-  "a board with black piece in 53 and white pieces in 37 and 45"
+  "a board with black piece in 53 and white pieces in 37 and 45 (black-test)"
   (board-maker [36 28] [20]))
 
 (def board16
-  "a board with black piece in 53 and white pieces in 37 and 45"
+  "a board with black piece in 53 and white pieces in 37 and 45 (black-test)"
   (board-maker [] [20 28 36 44]))
 
 (def board17
-  "a board with black piece in 53 and white pieces in 37 and 45"
+  "a board with black piece in 53 and white pieces in 37 and 45 (black-test)"
   (board-maker [15 22 29 36 43 50] [57]))
 
 (def board18
-  "a board with black piece in 53 and white pieces in 37 and 45"
+  "a board with black piece in 53 and white pieces in 37 and 45 (black-test)"
   (board-maker [] [8 15 22 29 36 43 50 57]))
 
 (def board19
-  "a board with black piece in 53 and white pieces in 37 and 45"
+  "a board with black piece in 53 and white pieces in 37 and 45 (black-test)"
   (board-maker [27] [20]))
 
 (def board20
-  "a board with black piece in 53 and white pieces in 37 and 45"
+  "a board with black piece in 53 and white pieces in 37 and 45 (black-test)"
   (board-maker [] [20 27 34]))
 
 (def board21
-  "a board with many white pieces and many black pieces if you put a black piece in 36 you change all whites"
+  "a board with many white pieces and many black pieces if you put a black piece in 36 you change all whites (black-test)"
   (board-maker [28 20 43 50 35 34 45 37 38 39 29 22 15 27 18] [54 40 8 12 9 33 57 60]))
 
 (def board22

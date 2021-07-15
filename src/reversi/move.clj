@@ -21,53 +21,51 @@
   [board pos]
   (= (get-in board [pos :occupied-by]) 0))
 
+(defn occupied?
+  [board pos connection]
+  "it gives a vector with color in the left-right connections of a position "
+  (vec (map #(get-in board [% :occupied-by])
+            (get-in board [pos connection]))))
+
 (defn occupied-left-right?
   "it gives a vector with color in the left-right connections of a position "
   [board pos]
-  (vec (map #(get-in board [% :occupied-by])
-            (get-in board [pos :left-right]))))
+  (occupied? board pos :left-right))
 
 (defn occupied-right-left?
   "it gives a vector with color in the right-left connections of a position "
   [board pos]
-  (vec (map #(get-in board [% :occupied-by])
-            (get-in board [pos :right-left]))))
+  (occupied? board pos :right-left))
 
 (defn occupied-left-up?
   "it gives a vector with color in the left-up connections of a position "
   [board pos]
-  (vec (map #(get-in board [% :occupied-by])
-            (get-in board [pos :left-up]))))
+  (occupied? board pos :left-up))
 
 (defn occupied-left-down?
   "it gives a vector with color in the left-down connections of a position "
   [board pos]
-  (vec (map #(get-in board [% :occupied-by])
-            (get-in board [pos :left-down]))))
+  (occupied? board pos :left-down))
 
 (defn occupied-right-up?
   "it gives a vector with color in the right-up connections of a position "
   [board pos]
-  (vec (map #(get-in board [% :occupied-by])
-            (get-in board [pos :right-up]))))
+  (occupied? board pos :right-up))
 
 (defn occupied-right-down?
   "it gives a vector with color in the right-down connections of a position "
   [board pos]
-  (vec (map #(get-in board [% :occupied-by])
-            (get-in board [pos :right-down]))))
+  (occupied? board pos :right-down))
 
 (defn occupied-up-down?
   "it gives a vector with color in the up-down connections of a position "
   [board pos]
-  (vec (map #(get-in board [% :occupied-by])
-            (get-in board [pos :up-down]))))
+  (occupied? board pos :up-down))
 
 (defn occupied-down-up?
   "it gives a vector with color in the down-up connections of a position "
   [board pos]
-  (vec (map #(get-in board [% :occupied-by])
-            (get-in board [pos :down-up]))))
+  (occupied? board pos :down-up))
 
 (defn other-equal?
   "check if there is other with the same color in a conection"
@@ -87,85 +85,55 @@
        (vec (take-while #(not= % color) (connection board pos))))
     false))
 
+(defn changes
+  "make all the changes for a connection"
+  [board pos occupied connection add color]
+  (let [board-after-add (add board pos)]
+    (if (all-the-center? board pos color occupied)
+      (reduce (fn [board pos] (add-a-black board pos))
+              board-after-add
+              (take (count (take-the-center board pos color occupied)) (connection pos)))
+      board-after-add)))
+
 (defn changes-black-right-left
   "make all the changes in right left connection if exist (after a white turn)"
   [board pos]
-  (let [board-after-black (add-a-black board pos)]
-    (if (all-the-center? board pos -1 occupied-right-left?)
-      (reduce (fn [board pos] (add-a-black board pos))
-              board-after-black
-              (take (count (take-the-center board pos -1 occupied-right-left?)) (reversi.board/connect-right-left pos)))
-      board-after-black)))
+  (changes board pos occupied-right-left? reversi.board/connect-right-left add-a-black -1))
 
 (defn changes-black-left-right
   "make all the changes in left-right connection if exist (after a white turn)"
   [board pos]
-  (let [board-after-black (add-a-black board pos)]
-    (if (all-the-center? board pos -1 occupied-left-right?)
-      (reduce (fn [board pos] (add-a-black board pos))
-              board-after-black
-              (take (count (take-the-center board pos -1 occupied-left-right?)) (reversi.board/connect-left-right pos)))
-      board-after-black)))
+  (changes board pos occupied-left-right? reversi.board/connect-left-right add-a-black -1))
 
 (defn changes-black-up-down
   "make all the changes in up-down connection if exist (after a white turn)"
   [board pos]
-  (let [board-after-black (add-a-black board pos)]
-    (if (all-the-center? board pos -1 occupied-up-down?)
-      (reduce (fn [board pos] (add-a-black board pos))
-              board-after-black
-              (take (count (take-the-center board pos -1 occupied-up-down?)) (reversi.board/connect-up-down pos)))
-      board-after-black)))
+  (changes board pos occupied-up-down? reversi.board/connect-up-down add-a-black -1))
 
 (defn changes-black-down-up
   "make all the changes in down-up connection if exist (after a white turn)"
   [board pos]
-  (let [board-after-black (add-a-black board pos)]
-    (if (all-the-center? board pos -1 occupied-down-up?)
-      (reduce (fn [board pos] (add-a-black board pos))
-              board-after-black
-              (take (count (take-the-center board pos -1 occupied-down-up?)) (reversi.board/connect-down-up pos)))
-      board-after-black)))
+  (changes board pos occupied-down-up? reversi.board/connect-down-up add-a-black -1))
 
 (defn changes-black-left-up
   "make all the changes in left-up connection if exist (after a white turn)"
   [board pos]
-  (let [board-after-black (add-a-black board pos)]
-    (if (all-the-center? board pos -1 occupied-left-up?)
-      (reduce (fn [board pos] (add-a-black board pos))
-              board-after-black
-              (take (count (take-the-center board pos -1 occupied-left-up?)) (reversi.board/connect-left-up pos)))
-      board-after-black)))
+  (changes board pos occupied-left-up? reversi.board/connect-left-up add-a-black -1))
 
 (defn changes-black-left-down
   "make all the changes in left-down connection if exist (after a white turn)"
   [board pos]
-  (let [board-after-black (add-a-black board pos)]
-    (if (all-the-center? board pos -1 occupied-left-down?)
-      (reduce (fn [board pos] (add-a-black board pos))
-              board-after-black
-              (take (count (take-the-center board pos -1 occupied-left-down?)) (reversi.board/connect-left-down pos)))
-      board-after-black)))
+  (changes board pos occupied-left-down? reversi.board/connect-left-down add-a-black -1))
 
 (defn changes-black-right-down
   "make all the changes in right-down connection if exist (after a white turn)"
   [board pos]
-  (let [board-after-black (add-a-black board pos)]
-    (if (all-the-center? board pos -1 occupied-right-down?)
-      (reduce (fn [board pos] (add-a-black board pos))
-              board-after-black
-              (take (count (take-the-center board pos -1 occupied-right-down?)) (reversi.board/connect-right-down pos)))
-      board-after-black)))
+  (changes board pos occupied-right-down? reversi.board/connect-right-down add-a-black -1))
 
 (defn changes-black-right-up
   "make all the changes in right-up connection if exist (after a white turn)"
   [board pos]
-  (let [board-after-black (add-a-black board pos)]
-    (if (all-the-center? board pos -1 occupied-right-up?)
-      (reduce (fn [board pos] (add-a-black board pos))
-              board-after-black
-              (take (count (take-the-center board pos -1 occupied-right-up?)) (reversi.board/connect-right-up pos)))
-      board-after-black)))
+  (changes board pos occupied-right-up? reversi.board/connect-right-up add-a-black -1))
 
 (defn complete-black-movement
   "make all the changes after add a black piece"
