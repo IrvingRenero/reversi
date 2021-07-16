@@ -1,7 +1,5 @@
 (ns reversi.board)
 
-(int (Math/ceil (/ 3 2)))
-
 (defn row
   "the row number at the position"
   [position]
@@ -102,3 +100,31 @@
             (all-conections-number board positions))
           {}
           (range 1 (inc positions))))
+
+(defn occupied-representation
+  [board pos]
+  (cond (= (get-in board [pos :occupied-by]) 0) "n"
+        (= (get-in board [pos :occupied-by]) 1) "+"
+        (= (get-in board [pos :occupied-by]) -1) "-"))
+
+(defn print-board
+  "print a board I know, I need modify the function but this gives a beautiful board"
+  [board]
+  (do (println (vec (map #(str "  " % (occupied-representation board %))
+                (range 1 9)) ))
+      (println (into [(str "  " 9 (occupied-representation board 9))] (vec (map #(str " " % (occupied-representation board %))
+                    (range 10 17)))) )
+      (println (vec (map #(str  " " % (occupied-representation board %))
+                    (range 17 25))) )
+      (println (vec (map #(str " " % (occupied-representation board %))
+                    (range 25 33))) )
+      (println (vec (map #(str " " % (occupied-representation board %))
+                    (range 33 41))) )
+      (println (vec (map #(str " " % (occupied-representation board %))
+                    (range 41 49))) )
+      (println (vec (map #(str " " % (occupied-representation board %))
+                    (range 49 57))) )
+      (print (vec (map #(str " " % (occupied-representation board %))
+                    (range 57 65))))))
+
+
