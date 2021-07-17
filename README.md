@@ -1,10 +1,26 @@
 # reversi
 
-A Clojure library designed to ... well, that part is up to you.
+The reversi game made all in clojure
 
 ## Usage
 
-FIXME
+1.- lein run
+
+2.- the game start asking who will start the game? only put -1 for black or 1 for white and 
+    press enter.
+
+3.- white or black start, white is visualized by + and black for - put the number wher you want
+    add a piece.
+
+4.- is the turn for the second player do the same put the number wher you want add your piece
+
+5.- the game is over when there aren't available places
+
+6.- the game is over and you get the result for the game
+
+## tests 
+
+the game works and you can see the test until a complete movement is posible
 
 ## License
 
