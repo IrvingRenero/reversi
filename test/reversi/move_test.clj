@@ -1333,6 +1333,6 @@
 
 
 (deftest complete-white-movement-test
-  "if we prove this automatically all changes-white-... are proved becaus we need all in this function"
+  "if we test this automatically all changes-white-... are tested because we need all in this function"
   (is (= board22w (reversi.move/complete-white-movement board21w 36))))
 

@@ -113,7 +113,7 @@
   (do (println (vec (map #(str "  " % (occupied-representation board %))
                 (range 1 9)) ))
       (println (into [(str "  " 9 (occupied-representation board 9))] (vec (map #(str " " % (occupied-representation board %))
-                    (range 10 17)))) )
+                    (range 10 17)))))
       (println (vec (map #(str  " " % (occupied-representation board %))
                     (range 17 25))) )
       (println (vec (map #(str " " % (occupied-representation board %))
